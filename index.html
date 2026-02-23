@@ -1,0 +1,1804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yum Yums 🍎</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Shantell+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=SN+Pro:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+
+  <style>
+    /* ── TOKENS ── */
+    :root {
+      --primary-green: #C8E6C9;
+      --primary-green-light: #E1F5E1;
+      --primary-green-dark: #A5D6A7;
+      --button-teal: #2E7D7D;
+      --button-teal-light: #4A9B9B;
+      --accent-orange: #FFE0B2;
+      --accent-orange-light: #FFF3E0;
+      --accent-pink: #F8BBD9;
+      --accent-blue: #BBDEFB;
+      --accent-purple: #E1BEE7;
+      --background-cream: #FFFEF7;
+      --background-light: #FAFAFA;
+      --card-breakfast: #FFF8E1;
+      --card-snack: #E8F5E8;
+      --card-lunch: #FFE0B2;
+      --card-dinner: #BBDEFB;
+      --card-side: #F8BBD9;
+      --yellow: #FFEB3B;
+      --yellow-light: #FFF9C4;
+      --friendly-teal: #2E7D7D;
+      --friendly-teal-light: #4A9B9B;
+      --friendly-teal-dark: #1B5E5E;
+      --blue: #2196F3;
+      --blue-light: #E3F2FD;
+      --white: #FFFFFF;
+      --black: #212121;
+      --gray: #F5F5F5;
+      --gray-mid: #E0E0E0;
+      --text-primary: #212121;
+      --text-secondary: #757575;
+      --shadow: 0 2px 8px rgba(0,0,0,0.1);
+      --shadow-hover: 0 4px 12px rgba(0,0,0,0.15);
+      --shadow-card: 0 2px 8px rgba(0,0,0,0.08);
+      --radius-card: 16px;
+      --radius-btn: 8px;
+      --font-head: "Shantell Sans", cursive;
+      --font-body: 'SN Pro', sans-serif;
+    }
+
+    /* ── RESET ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { 
+      font-family: var(--font-body); 
+      background: var(--white); 
+      color: var(--text-primary); 
+      min-height: 100vh; 
+      line-height: 1.6;
+    }
+    button { cursor: pointer; font-family: var(--font-body); border: none; outline: none; }
+    input, select, textarea { font-family: var(--font-body); }
+    ul { list-style: none; }
+
+    /* ── HEADER ── */
+    header {
+      background: var(--white);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 80px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid var(--gray-mid);
+    }
+    .logo {
+      font-family: var(--font-head);
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--text-primary);
+      letter-spacing: -0.5px;
+    }
+    .logo span { color: var(--button-teal); }
+
+    nav { display: flex; gap: 0.5rem; }
+    nav button {
+      background: transparent;
+      color: var(--text-secondary);
+      font-weight: 600;
+      font-size: 0.9rem;
+      padding: 0.5rem 1.2rem;
+      border-radius: var(--radius-btn);
+      transition: background 0.2s, color 0.2s;
+    }
+    nav button:hover,
+    nav button.active {
+      background: var(--primary-green);
+      color: var(--text-primary);
+    }
+
+    /* ── MAIN LAYOUT ── */
+    main { 
+      max-width: 1200px; 
+      margin: 0 auto; 
+      padding: 3rem 2rem; 
+    }
+
+    /* ── SECTIONS ── */
+    .section { 
+      display: none; 
+      background: transparent;
+      border-radius: var(--radius-card);
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      box-shadow: none;
+    }
+    .section.active { display: block; }
+
+    .section-title {
+      font-family: var(--font-body);
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: var(--text-primary);
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      text-align: left;
+      justify-content: flex-start;
+    }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      border-radius: var(--radius-btn);
+      padding: 0.75rem 1.75rem;
+      font-weight: 700;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      box-shadow: var(--shadow);
+    }
+
+    #generate-btn {
+      position: relative;
+      overflow: visible;
+    }
+    
+    .btn:hover { 
+      transform: translateY(-2px); 
+      box-shadow: 0 6px 20px rgba(50, 215, 75, 0.2); 
+    }
+    
+    .btn:active { 
+      transform: translateY(-1px); 
+    }
+
+    .pretzel-burst {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    .pretzel {
+      position: absolute;
+      opacity: 0;
+      font-size: 2.4rem;
+      animation: pretzel-pop 700ms ease-out forwards;
+      animation-delay: var(--delay, 0ms);
+    }
+
+    @keyframes pretzel-pop {
+      0% {
+        transform: translate(0, 0) scale(0.6);
+        opacity: 0;
+      }
+      20% { opacity: 1; }
+      100% {
+        transform: translate(var(--x, 0px), var(--y, -120px)) scale(1);
+        opacity: 0;
+      }
+    }
+    
+    .btn-yellow { 
+      background: var(--button-teal); 
+      color: var(--white); 
+    }
+    
+    .btn-red    { 
+      background: var(--button-teal); 
+      color: var(--white); 
+    }
+    
+    .btn-blue   { 
+      background: var(--button-teal); 
+      color: var(--white); 
+    }
+    
+    .btn-ghost  { 
+      background: white; 
+      border: 2px solid var(--gray-mid); 
+      color: var(--black); 
+    }
+
+    #reset-plan-btn {
+      background: transparent;
+      border: 2px solid var(--button-teal);
+      color: var(--button-teal);
+    }
+
+    /* ── FOOD LIBRARY ── */
+    .library-controls {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      padding: 1.5rem;
+      background: transparent;
+      border-radius: var(--radius-card);
+      box-shadow: none;
+      border: none;
+    }
+
+    .filter-tabs { 
+      display: flex; 
+      gap: 0.75rem; 
+      overflow-x: auto; 
+      padding: 1rem;
+      background: var(--white);
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow);
+      margin-bottom: 2rem;
+      flex-wrap: wrap; 
+    }
+    
+    .filter-tab {
+      background: var(--white);
+      color: var(--text-secondary);
+      border-radius: var(--radius-btn);
+      padding: 0.75rem 1.5rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      border: 2px solid var(--gray-mid);
+      text-transform: none;
+      letter-spacing: -0.01em;
+    }
+    
+    .filter-tab:hover {
+      background: var(--primary-green-light);
+      color: var(--text-primary);
+      border-color: var(--primary-green);
+      transform: translateY(-1px);
+    }
+    
+    .filter-tab.active { 
+      background: var(--button-teal); 
+      color: var(--white);
+      border-color: var(--button-teal);
+      box-shadow: var(--shadow-card);
+      transform: translateY(-1px);
+    }
+
+    /* Add Food Form */
+    .add-form-card {
+      background: var(--white);
+      border: 2px dashed var(--button-teal);
+      border-radius: var(--radius-card);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      display: none;
+    }
+    .add-form-card.open { display: block; }
+    .add-form-card h3 {
+      font-family: var(--font-head);
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      color: var(--black);
+    }
+    .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.3rem; }
+    .form-group label { font-size: 0.8rem; font-weight: 600; color: #555; text-transform: uppercase; letter-spacing: 0.05em; }
+    .form-group input,
+    .form-group select {
+      border: 2px solid var(--gray-mid);
+      border-radius: 12px;
+      padding: 0.55rem 0.9rem;
+      font-size: 0.95rem;
+      background: #fff;
+      transition: border-color 0.2s;
+    }
+    .form-group input:focus,
+    .form-group select:focus { outline: none; border-color: var(--blue); }
+    .form-actions { margin-top: 1rem; display: flex; gap: 0.75rem; }
+
+    /* Food Tiles Grid */
+    .food-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .food-card {
+      background: #fff;
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-card);
+      padding: 1.5rem 1.2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+      text-align: center;
+      transition: all 0.3s ease;
+      position: relative;
+      border: 2px solid transparent;
+      overflow: hidden;
+    }
+
+    .add-food-card {
+      background: transparent;
+      border: 2px solid var(--gray-mid);
+      box-shadow: none;
+      color: var(--text-secondary);
+      cursor: pointer;
+      min-height: 210px;
+      justify-content: center;
+    }
+
+    .add-food-card:hover {
+      border-color: var(--button-teal);
+      color: var(--text-primary);
+      box-shadow: var(--shadow-card);
+      transform: translateY(-2px);
+    }
+
+    .add-food-card .add-food-label {
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: -0.01em;
+    }
+    
+    .food-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--button-teal);
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+    
+    .food-card:hover { 
+      transform: translateY(-8px); 
+      box-shadow: var(--shadow-hover); 
+    }
+    
+    .food-card:hover::before {
+      transform: scaleX(1);
+    }
+    
+    .food-card[data-type="snack"] {
+      background: var(--card-snack);
+    }
+    
+    .food-card[data-type="lunch"] {
+      background: var(--card-lunch);
+    }
+    
+    .food-card[data-type="side"] {
+      background: var(--card-side);
+    }
+
+    .food-image { 
+      width: 70px;
+      height: 70px;
+      object-fit: cover;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.9);
+      box-shadow: var(--shadow);
+      margin-bottom: 0.5rem;
+      border: 3px solid rgba(255,255,255,0.8);
+      transition: all 0.3s ease;
+    }
+    
+    .food-image:hover {
+      transform: scale(1.1);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .food-emoji {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.56rem;
+      line-height: 1;
+      margin-bottom: 0.25rem;
+    }
+    
+    .food-name { 
+      font-family: var(--font-body); 
+      font-weight: 700; 
+      font-size: 1.1rem; 
+      letter-spacing: 0.02em;
+      margin-bottom: 0.5rem;
+      color: var(--black);
+    }
+
+    .food-body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      width: 100%;
+      flex: 1 1 auto;
+    }
+    
+    .food-badge {
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.4rem 1rem;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      box-shadow: var(--shadow);
+    }
+    
+    .badge-snack  { background: var(--primary-green); color: white; }
+    .badge-lunch  { background: var(--accent-orange); color: white; }
+    .badge-side   { background: var(--accent-purple); color: white; }
+
+    .food-card-actions {
+      display: flex;
+      gap: 0.4rem;
+      margin-top: 0.25rem;
+      margin-top: auto;
+    }
+    .icon-btn {
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.8rem;
+      transition: background 0.2s;
+    }
+    .icon-btn-del {
+      background: var(--white);
+      color: #111;
+      border: 1px solid var(--gray-mid);
+    }
+    .icon-btn-del:hover {
+      background: var(--background-light);
+    }
+    .icon-btn-del svg {
+      width: 14px;
+      height: 14px;
+      display: block;
+      fill: currentColor;
+    }
+
+    .allergen-tags { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; }
+    .allergen-tag {
+      font-size: 0.65rem;
+      background: rgba(255, 255, 255, 0.4);
+      color: #111;
+      border-radius: 999px;
+      padding: 0.15rem 0.6rem;
+      font-weight: 600;
+    }
+
+    /* ── WEEKLY PLAN ── */
+    .planner-controls {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+      padding: 2rem;
+      background: var(--primary-green-light);
+      border-radius: var(--radius-card);
+      box-shadow: none;
+      align-items: start;
+    }
+    
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    
+    .control-group label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      line-height: 1;
+    }
+    
+    .control-group select {
+      border: 2px solid var(--gray-mid);
+      border-radius: var(--radius-btn);
+      padding: 0.75rem 1rem;
+      padding-right: calc(1rem + 32px);
+      font-size: 0.95rem;
+      background: #fff;
+      font-family: var(--font-body);
+      font-weight: 500;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow);
+    }
+
+    #morning-snacks,
+    #afternoon-snacks {
+      padding-right: calc(1rem + 36px);
+      border-color: var(--button-teal);
+    }
+
+    .planner-controls .btn {
+      padding: 0.75rem 1rem;
+      height: 44px;
+      align-self: start;
+      margin-top: 1.55rem;
+      justify-content: center;
+      text-align: center;
+    }
+    
+    .control-group select:focus {
+      outline: none;
+      border-color: var(--button-teal);
+      box-shadow: 0 0 0 3px rgba(46, 125, 125, 0.1);
+    }
+
+    .week-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .week-grid.horizontal {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .week-layout-toggle {
+      display: inline-flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .week-layout-toggle button {
+      padding: 0.4rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid var(--gray-mid);
+      background: var(--white);
+      color: var(--text-secondary);
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .week-layout-toggle button.active {
+      background: var(--button-teal);
+      color: var(--white);
+      border-color: var(--button-teal);
+    }
+
+    .day-card {
+      background: #fff;
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-card);
+      overflow: hidden;
+      transition: all 0.3s ease;
+      border: none;
+    }
+    
+    .day-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+    }
+    
+    .day-header {
+      background: var(--button-teal);
+      color: #fff;
+      font-family: var(--font-head);
+      font-weight: 900;
+      font-size: 1.2rem;
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .day-header.day-0 { background: #2E7D7D; }
+    .day-header.day-1 { background: #3A8D8D; }
+    .day-header.day-2 { background: #4A9B9B; }
+    .day-header.day-3 { background: #5EABAB; }
+    .day-header.day-4 { background: #73BABA; }
+    
+    .day-regen-btn {
+      background: rgba(255,255,255,0.2);
+      color: #fff;
+      border-radius: 50%;
+      width: 32px; height: 32px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+    
+    .day-regen-btn:hover { 
+      background: rgba(255,255,255,0.3); 
+      transform: rotate(180deg) scale(1.1); 
+    }
+
+    .day-regen-btn svg {
+      width: 16px;
+      height: 16px;
+      display: block;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .day-meals { 
+      padding: 1.25rem; 
+      display: flex; 
+      flex-direction: column; 
+      gap: 1rem; 
+    }
+
+    .meal-slot {
+      border-radius: var(--radius-btn);
+      padding: 1rem;
+      transition: all 0.3s ease;
+      border-left: 4px solid transparent;
+    }
+    
+    .meal-slot.lunch { 
+      background: var(--card-lunch);
+      border-left-color: var(--button-teal);
+    }
+    
+    .meal-slot.snack { 
+      background: var(--card-snack);
+      border-left-color: var(--button-teal);
+    }
+    
+    .meal-slot.side { 
+      background: var(--card-side);
+      border-left-color: var(--button-teal);
+    }
+    
+    .meal-slot-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--black);
+      margin-bottom: 0.75rem;
+      display: block;
+    }
+    
+    .meal-slot-content {
+      margin-top: 0.5rem;
+    }
+    
+    .meal-item {
+      background: rgba(255,255,255,0.95);
+      padding: 0.75rem 1rem;
+      border-radius: var(--radius-btn);
+      font-size: 0.9rem;
+      font-weight: 600;
+      box-shadow: var(--shadow);
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255,255,255,0.8);
+      margin-bottom: 0.5rem;
+    }
+    
+    .meal-item:hover {
+      background: white;
+      transform: translateX(4px);
+      box-shadow: var(--shadow-hover);
+    }
+    
+    .meal-item.main-meal {
+      font-weight: 700;
+      background: white;
+      box-shadow: var(--shadow-card);
+      font-size: 1rem;
+    }
+    
+    .meal-sides {
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 2px solid rgba(255,255,255,0.7);
+    }
+    
+    .meal-sides-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--black);
+      margin-bottom: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .empty-plan-msg {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 4rem 2rem;
+      color: #aaa;
+    }
+    .empty-plan-msg .big { font-size: 4rem; }
+    .empty-plan-msg p { font-size: 1rem; margin-top: 0.5rem; }
+
+    /* ── SHOPPING LIST ── */
+    .shopping-header {
+      display: flex; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; align-items: center;
+    }
+
+    .shopping-group { margin-bottom: 1.5rem; }
+    .shopping-group-title {
+      font-family: var(--font-head);
+      font-weight: 900;
+      font-size: 1.1rem;
+      color: var(--blue);
+      padding-bottom: 0.4rem;
+      border-bottom: 3px solid var(--yellow);
+      margin-bottom: 0.75rem;
+    }
+
+    .shopping-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.65rem 0;
+      border-bottom: 1px solid var(--gray);
+      font-size: 0.95rem;
+    }
+    .shopping-item input[type="checkbox"] { display: none; }
+    .shopping-item label {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      cursor: pointer;
+      width: 100%;
+    }
+    .check-box {
+      width: 22px; height: 22px;
+      border-radius: 8px;
+      border: 2px solid var(--gray-mid);
+      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s, border-color 0.2s;
+      font-size: 0.85rem;
+    }
+    .shopping-item input:checked + label .check-box {
+      background: var(--blue); border-color: var(--blue); color: #fff;
+    }
+    .shopping-item input:checked + label .item-text {
+      text-decoration: line-through;
+      color: #aaa;
+    }
+
+    .empty-list-msg {
+      text-align: center; padding: 3rem; color: #aaa;
+    }
+    .empty-list-msg .big { font-size: 3rem; }
+
+    /* ── PREFERENCES ── */
+    .pref-section { margin-bottom: 2rem; }
+    .pref-section-title {
+      font-family: var(--font-head);
+      font-weight: 900;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      color: var(--black);
+    }
+
+    .allergen-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 0.75rem;
+    }
+
+    .pref-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #fff;
+      border-radius: 16px;
+      padding: 0.9rem 1rem;
+      box-shadow: var(--shadow);
+      gap: 1rem;
+    }
+    .pref-toggle-label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    .pref-toggle-label span { font-size: 1.4rem; }
+
+    /* Custom toggle switch */
+    .toggle-wrap { position: relative; width: 44px; height: 24px; flex-shrink: 0; }
+    .toggle-wrap input { opacity: 0; width: 0; height: 0; position: absolute; }
+    .toggle-slider {
+      position: absolute;
+      inset: 0;
+      border-radius: var(--radius-btn);
+      background: var(--gray-mid);
+      transition: background 0.25s;
+      cursor: pointer;
+    }
+    .toggle-slider::before {
+      content: '';
+      position: absolute;
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: #fff;
+      top: 3px; left: 3px;
+      transition: transform 0.25s;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    }
+    .toggle-wrap input:checked + .toggle-slider { background: var(--primary-green); }
+    .toggle-wrap input:checked + .toggle-slider::before { transform: translateX(20px); }
+
+    .dislike-input-row {
+      display: flex; gap: 0.75rem; margin-bottom: 0.75rem;
+    }
+    .dislike-input-row input {
+      flex: 1;
+      border: 2px solid var(--gray-mid);
+      border-radius: 12px;
+      padding: 0.55rem 1rem;
+      font-size: 0.95rem;
+      transition: border-color 0.2s;
+    }
+    .dislike-input-row input:focus { outline: none; border-color: var(--blue); }
+
+    .dislike-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .dislike-tag {
+      display: flex; align-items: center; gap: 0.35rem;
+      background: var(--gray);
+      border-radius: var(--radius-btn);
+      padding: 0.3rem 0.75rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    .dislike-tag button {
+      background: none;
+      color: #888;
+      font-size: 0.9rem;
+      padding: 0;
+      line-height: 1;
+    }
+    .dislike-tag button:hover { color: var(--accent-pink); }
+
+    /* ── TOAST ── */
+    #toast {
+      position: fixed;
+      bottom: 2rem; left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: var(--black);
+      color: #fff;
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius-btn);
+      font-size: 0.9rem;
+      font-weight: 600;
+      z-index: 9999;
+      opacity: 0;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    #toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      header { padding: 0 1rem; }
+      .logo  { font-size: 1.5rem; }
+      nav button { padding: 0.4rem 0.8rem; font-size: 0.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo" role="button" tabindex="0" aria-label="Go to planner">Yum<span>Yums</span></div>
+  <nav>
+    <button class="active" data-section="weekly-plan">Planner</button>
+    <button data-section="food-library">Foods</button>
+    <button data-section="shopping-list">Shopping</button>
+    <button data-section="preferences">🍔</button>
+  </nav>
+</header>
+
+<main>
+
+  <!-- ── WEEKLY PLAN ── -->
+  <section id="weekly-plan" class="section active">
+    <h2 class="section-title">Weekly Planner</h2>
+    <div class="planner-controls">
+      <div class="control-group">
+        <label for="morning-snacks">Morning snacks:</label>
+        <select id="morning-snacks">
+          <option value="2">2 items</option>
+          <option value="3">3 items</option>
+        </select>
+      </div>
+      <div class="control-group">
+        <label for="afternoon-snacks">Afternoon snacks:</label>
+        <select id="afternoon-snacks">
+          <option value="2">2 items</option>
+          <option value="3">3 items</option>
+        </select>
+      </div>
+      <button class="btn btn-red" id="generate-btn">Generate Week</button>
+      <button class="btn btn-ghost" id="reset-plan-btn">Reset Plan</button>
+    </div>
+    <div class="week-layout-toggle" aria-label="Weekly plan layout">
+      <button type="button" class="active" data-layout="vertical">List</button>
+      <button type="button" data-layout="horizontal">Grid</button>
+    </div>
+    <div class="week-grid" id="week-grid">
+      <div class="empty-plan-msg">
+        <div class="big"></div>
+        <p>Hit <strong>Generate Week</strong> to build your meal plan!</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOD LIBRARY ── -->
+  <section id="food-library" class="section">
+    <h2 class="section-title">Food Library</h2>
+
+    <div class="library-controls">
+      <div class="filter-tabs">
+        <button class="filter-tab active" data-filter="all">All</button>
+        <button class="filter-tab" data-filter="snack">Snacks</button>
+        <button class="filter-tab" data-filter="lunch">Lunches</button>
+        <button class="filter-tab" data-filter="side">Sides</button>
+      </div>
+    </div>
+
+    <!-- Add Form -->
+    <div class="add-form-card" id="add-form-card">
+      <h3>🌟 Add a New Food</h3>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Food Name</label>
+          <input type="text" id="input-name" placeholder="e.g. Apple Slices" />
+        </div>
+        <div class="form-group">
+          <label>Image URL</label>
+          <input type="text" id="input-image" placeholder="https://cdn-icons-png.flaticon.com/512/415/415682.png" />
+        </div>
+        <div class="form-group">
+          <label>Type</label>
+          <select id="input-type">
+            <option value="snack">Snack</option>
+            <option value="lunch">Lunch</option>
+            <option value="side">Side</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Ingredients (comma-separated)</label>
+          <input type="text" id="input-ingredients" placeholder="apples, cinnamon" />
+        </div>
+        <div class="form-group">
+          <label>Allergens (comma-separated)</label>
+          <input type="text" id="input-allergens" placeholder="dairy, nuts" />
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-blue" id="save-food-btn">Save Food</button>
+        <button class="btn btn-ghost" id="cancel-add-btn">Cancel</button>
+      </div>
+    </div>
+
+    <!-- Food Grid -->
+    <div class="food-grid" id="food-grid">
+      <!-- populated by JS -->
+    </div>
+  </section>
+
+  <!-- ── SHOPPING LIST ── -->
+  <section id="shopping-list" class="section">
+    <h2 class="section-title">Shopping List</h2>
+    <div class="shopping-header">
+      <button class="btn btn-yellow" id="build-list-btn">Build from Plan</button>
+      <button class="btn btn-ghost" id="amazon-sync-btn">Sync to Amazon Fresh</button>
+      <button class="btn btn-ghost" id="print-list-btn">Print</button>
+    </div>
+    <div id="shopping-content">
+      <div class="empty-list-msg">
+        <div class="big"></div>
+        <p>Generate your weekly plan first, then click <strong>Build from Plan</strong>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PREFERENCES ── -->
+  <section id="preferences" class="section">
+    <h2 class="section-title">Preferences</h2>
+
+    <div class="pref-section">
+      <div class="pref-section-title">Allergy Restrictions</div>
+      <p style="font-size:0.85rem; color:#888; margin-bottom:1rem;">Toggle ON to exclude these from the planner.</p>
+      <div class="allergen-grid" id="allergen-grid">
+        <!-- populated by JS -->
+      </div>
+    </div>
+
+    <div class="pref-section">
+      <div class="pref-section-title">Dislikes (Won't Eat)</div>
+      <div class="dislike-input-row">
+        <input type="text" id="dislike-input" placeholder="e.g. broccoli" />
+        <button class="btn btn-blue" id="add-dislike-btn">Add</button>
+      </div>
+      <div class="dislike-tags" id="dislike-tags">
+        <!-- populated by JS -->
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<script>
+// ============================================================
+// DATA — Default food library + localStorage helpers
+// ============================================================
+const STORAGE_KEYS = {
+  foods: 'yumyums_foods',
+  plan:  'yumyums_plan',
+  prefs: 'yumyums_prefs',
+};
+
+// nutritionGroup: fruit | veggie | dairy | protein | grain | healthy-fat
+const DEFAULT_FOODS = [
+
+  // ── SNACKS: FRUIT ──
+  { id: 1,  name: 'Apple Slices',           image: 'https://cdn-icons-png.flaticon.com/512/415/415682.png', type: 'snack', nutritionGroup: 'fruit',       ingredients: ['apples'],                              allergens: [],              note: 'Rich in fiber & vitamin C' },
+  { id: 2,  name: 'Banana',                 image: 'https://cdn-icons-png.flaticon.com/512/2909/2909761.png', type: 'snack', nutritionGroup: 'fruit',       ingredients: ['banana'],                              allergens: [],              note: 'Potassium boost, natural energy' },
+  { id: 3,  name: 'Blueberries',            image: 'https://cdn-icons-png.flaticon.com/512/590/590779.png', type: 'snack', nutritionGroup: 'fruit',       ingredients: ['blueberries'],                         allergens: [],              note: 'Antioxidant-rich superfood' },
+  { id: 4,  name: 'Strawberries',           image: 'https://cdn-icons-png.flaticon.com/512/590/590778.png', type: 'snack', nutritionGroup: 'fruit',       ingredients: ['strawberries'],                        allergens: ['strawberries'],note: 'Vitamin C & folate' },
+  { id: 5,  name: 'Mango Chunks',           image: 'https://cdn-icons-png.flaticon.com/512/590/590776.png', type: 'snack', nutritionGroup: 'fruit',       ingredients: ['mango'],                              allergens: [],              note: 'Vitamins A & C, digestive enzymes' },
+  { id: 6,  name: 'Watermelon Cubes',       image: 'https://cdn-icons-png.flaticon.com/512/590/590775.png', type: 'snack', nutritionGroup: 'fruit',       ingredients: ['watermelon'],                         allergens: [],              note: 'Hydrating, lycopene source' },
+  { id: 7,  name: 'Grapes (halved)',        image: 'https://cdn-icons-png.flaticon.com/512/590/590777.png', type: 'snack', nutritionGroup: 'fruit',       ingredients: ['grapes'],                             allergens: [],              note: 'Natural sugars, resveratrol' },
+  { id: 8,  name: 'Peach Slices',           image: 'https://cdn-icons-png.flaticon.com/512/590/590774.png', type: 'snack', nutritionGroup: 'fruit',       ingredients: ['peach'],                              allergens: [],              note: 'Vitamins A & C, low calorie' },
+  { id: 9,  name: 'Pear Slices',            image: 'https://cdn-icons-png.flaticon.com/512/590/590773.png', type: 'snack', nutritionGroup: 'fruit',       ingredients: ['pear'],                               allergens: [],              note: 'High fiber, gentle on tummies' },
+  { id: 10, name: 'Orange Segments',        image: 'https://cdn-icons-png.flaticon.com/512/415/415639.png', type: 'snack', nutritionGroup: 'fruit',       ingredients: ['oranges'],                            allergens: [],              note: 'Immune-boosting vitamin C' },
+  { id: 11, name: 'Kiwi Slices',            image: 'https://cdn-icons-png.flaticon.com/512/590/590772.png', type: 'snack', nutritionGroup: 'fruit',       ingredients: ['kiwi'],                               allergens: [],              note: 'More vitamin C than an orange' },
+  { id: 12, name: 'Applesauce Cup',         image: 'https://cdn-icons-png.flaticon.com/512/415/415682.png', type: 'snack', nutritionGroup: 'fruit',       ingredients: ['apples', 'cinnamon'],                 allergens: [],              note: 'Unsweetened, easy to eat' },
+
+  // ── SNACKS: VEGGIE ──
+  { id: 13, name: 'Carrot Sticks & Hummus', image: 'https://cdn-icons-png.flaticon.com/512/590/590742.png', type: 'snack', nutritionGroup: 'veggie',      ingredients: ['carrots', 'chickpeas', 'olive oil'],  allergens: [],              note: 'Beta-carotene + plant protein' },
+  { id: 14, name: 'Cucumber Rounds',        image: 'https://cdn-icons-png.flaticon.com/512/590/590740.png', type: 'snack', nutritionGroup: 'veggie',      ingredients: ['cucumber'],                           allergens: [],              note: 'Hydrating, very mild flavor' },
+  { id: 15, name: 'Cherry Tomatoes',        image: 'https://cdn-icons-png.flaticon.com/512/590/590739.png', type: 'snack', nutritionGroup: 'veggie',      ingredients: ['cherry tomatoes'],                    allergens: [],              note: 'Lycopene, bite-sized & fun' },
+  { id: 16, name: 'Sugar Snap Peas',        image: 'https://cdn-icons-png.flaticon.com/512/590/590738.png', type: 'snack', nutritionGroup: 'veggie',      ingredients: ['snap peas'],                          allergens: [],              note: 'Vitamin K & fiber, crunchy' },
+  { id: 17, name: 'Celery & Peanut Butter', image: 'https://cdn-icons-png.flaticon.com/512/590/590737.png', type: 'snack', nutritionGroup: 'veggie',      ingredients: ['celery', 'peanut butter'],            allergens: ['nuts'],        note: 'Classic crunch + healthy fat' },
+  { id: 18, name: 'Avocado Toast Bites',    image: 'https://cdn-icons-png.flaticon.com/512/590/590736.png', type: 'snack', nutritionGroup: 'healthy-fat', ingredients: ['avocado', 'whole grain bread', 'lemon'],allergens: ['gluten'],    note: 'Heart-healthy fats, filling' },
+  { id: 19, name: 'Edamame',               image: 'https://cdn-icons-png.flaticon.com/512/590/590735.png', type: 'snack', nutritionGroup: 'veggie',      ingredients: ['edamame'],                            allergens: ['soy'],         note: 'Complete plant protein, iron' },
+  { id: 20, name: 'Roasted Sweet Potato Bites', image: 'https://cdn-icons-png.flaticon.com/512/590/590734.png', type: 'snack', nutritionGroup: 'veggie', ingredients: ['sweet potato', 'olive oil'],           allergens: [],              note: 'Vitamin A, complex carbs' },
+
+  // ── SNACKS: DAIRY / PROTEIN ──
+  { id: 21, name: 'String Cheese',          image: 'https://cdn-icons-png.flaticon.com/512/590/590733.png', type: 'snack', nutritionGroup: 'dairy',       ingredients: ['mozzarella'],                         allergens: ['dairy'],       note: 'Calcium & protein on-the-go' },
+  { id: 22, name: 'Yogurt Cup',             image: 'https://cdn-icons-png.flaticon.com/512/590/590732.png', type: 'snack', nutritionGroup: 'dairy',       ingredients: ['plain yogurt', 'berries', 'honey'],   allergens: ['dairy'],       note: 'Probiotics, calcium, protein' },
+  { id: 23, name: 'Cottage Cheese & Fruit', image: 'https://cdn-icons-png.flaticon.com/512/590/590731.png', type: 'snack', nutritionGroup: 'dairy',       ingredients: ['cottage cheese', 'pineapple'],        allergens: ['dairy'],       note: 'High protein, low fat' },
+  { id: 24, name: 'Hard-Boiled Egg',        image: 'https://cdn-icons-png.flaticon.com/512/590/590730.png', type: 'snack', nutritionGroup: 'protein',     ingredients: ['egg'],                                allergens: ['eggs'],        note: 'Complete protein, choline for brain' },
+  { id: 25, name: 'Turkey Roll-Ups',        image: 'https://cdn-icons-png.flaticon.com/512/590/590729.png', type: 'snack', nutritionGroup: 'protein',     ingredients: ['turkey slices', 'cream cheese'],      allergens: ['dairy'],       note: 'Low-carb protein snack' },
+  { id: 26, name: 'Sunflower Seed Butter',  image: 'https://cdn-icons-png.flaticon.com/512/590/590728.png', type: 'snack', nutritionGroup: 'healthy-fat', ingredients: ['sunflower seed butter', 'crackers'],  allergens: ['gluten'],      note: 'Nut-free healthy fat option' },
+
+  // ── SNACKS: GRAIN ──
+  { id: 27, name: 'Whole Grain Crackers',   image: 'https://cdn-icons-png.flaticon.com/512/590/590727.png', type: 'snack', nutritionGroup: 'grain',       ingredients: ['whole wheat', 'olive oil', 'salt'],   allergens: ['gluten'],      note: 'Fiber-rich, sustained energy' },
+  { id: 28, name: 'Rice Cakes with Butter', image: 'https://cdn-icons-png.flaticon.com/512/590/590726.png', type: 'snack', nutritionGroup: 'grain',       ingredients: ['rice cakes', 'butter'],               allergens: ['dairy'],       note: 'Light, gluten-free grain option' },
+  { id: 29, name: 'Oatmeal Bites',          image: 'https://cdn-icons-png.flaticon.com/512/590/590725.png', type: 'snack', nutritionGroup: 'grain',       ingredients: ['oats', 'banana', 'honey'],            allergens: ['gluten'],      note: 'Slow-release energy, fiber' },
+  { id: 30, name: 'Goldfish Crackers',      image: 'https://cdn-icons-png.flaticon.com/512/590/590724.png', type: 'snack', nutritionGroup: 'grain',       ingredients: ['wheat', 'cheddar'],                   allergens: ['gluten','dairy'], note: 'Kid-favorite, portion-controlled' },
+  { id: 31, name: 'Graham Crackers',        image: 'https://cdn-icons-png.flaticon.com/512/590/590727.png', type: 'snack', nutritionGroup: 'grain',       ingredients: ['graham flour', 'honey'],              allergens: ['gluten'],      note: 'Whole grain, mild sweetness' },
+  { id: 32, name: 'Granola Bar',            image: 'https://cdn-icons-png.flaticon.com/512/590/590723.png', type: 'snack', nutritionGroup: 'grain',       ingredients: ['oats', 'honey', 'dried fruit'],       allergens: ['gluten'],      note: 'Low-sugar variety, fiber + iron' },
+  { id: 33, name: 'Mini Bagel & Cream Cheese', image: 'https://cdn-icons-png.flaticon.com/512/590/590722.png', type: 'snack', nutritionGroup: 'grain',   ingredients: ['bagel', 'cream cheese'],              allergens: ['gluten','dairy'], note: 'Calcium + carbs for energy' },
+  { id: 34, name: 'Pita Chips & Hummus',    image: 'https://cdn-icons-png.flaticon.com/512/590/590721.png', type: 'snack', nutritionGroup: 'grain',       ingredients: ['pita', 'chickpeas', 'olive oil'],     allergens: ['gluten'],      note: 'Fiber + plant protein combo' },
+  { id: 35, name: 'Popcorn (lightly salted)',image: 'https://cdn-icons-png.flaticon.com/512/590/590720.png', type: 'snack', nutritionGroup: 'grain',      ingredients: ['popcorn', 'salt'],                    allergens: [],              note: 'Whole grain, low calorie, fun' },
+
+  // ── SNACKS: HEALTHY FAT / MIXED ──
+  { id: 36, name: 'Mixed Nuts',             image: 'https://cdn-icons-png.flaticon.com/512/590/590719.png', type: 'snack', nutritionGroup: 'healthy-fat', ingredients: ['almonds', 'cashews', 'walnuts'],      allergens: ['nuts'],        note: 'Omega-3s, protein, healthy fats' },
+  { id: 37, name: 'Trail Mix',              image: 'https://cdn-icons-png.flaticon.com/512/590/590718.png', type: 'snack', nutritionGroup: 'healthy-fat', ingredients: ['raisins', 'sunflower seeds', 'oats', 'dark chocolate chips'], allergens: [], note: 'Energy-dense, varied nutrients' },
+  { id: 38, name: 'Nut-Free Energy Balls',  image: 'https://cdn-icons-png.flaticon.com/512/590/590717.png', type: 'snack', nutritionGroup: 'grain',       ingredients: ['oats', 'honey', 'sunflower seed butter', 'mini chocolate chips'], allergens: [], note: 'No-bake, nut-free, energy boost' },
+  { id: 39, name: 'Cheese & Fruit Kabobs',  image: 'https://cdn-icons-png.flaticon.com/512/590/590716.png', type: 'snack', nutritionGroup: 'dairy',       ingredients: ['cheddar', 'grapes', 'strawberries'],  allergens: ['dairy','strawberries'], note: 'Protein + antioxidants, colorful' },
+
+  // ── LUNCHES: PROTEIN-CENTERED ──
+  { id: 40, name: 'Turkey & Cheese Sandwich', image: 'https://cdn-icons-png.flaticon.com/512/1046/1046784.png', type: 'lunch', nutritionGroup: 'protein',  ingredients: ['whole grain bread', 'turkey', 'cheddar', 'lettuce', 'tomato'], allergens: ['gluten','dairy'], note: 'Lean protein, calcium, fiber' },
+  { id: 41, name: 'Chicken & Veggie Wrap',  image: 'https://cdn-icons-png.flaticon.com/512/1046/1046785.png', type: 'lunch', nutritionGroup: 'protein',    ingredients: ['whole wheat tortilla', 'grilled chicken', 'lettuce', 'shredded carrots', 'ranch'], allergens: ['gluten','dairy'], note: 'Balanced protein + veggies' },
+  { id: 42, name: 'Mini Chicken Meatballs', image: 'https://cdn-icons-png.flaticon.com/512/1046/1046786.png', type: 'lunch', nutritionGroup: 'protein',    ingredients: ['ground chicken', 'egg', 'breadcrumbs', 'parmesan', 'garlic'], allergens: ['gluten','eggs','dairy'], note: 'Iron-rich, kid-sized bites' },
+  { id: 43, name: 'Tuna Salad Crackers',    image: 'https://cdn-icons-png.flaticon.com/512/1046/1046787.png', type: 'lunch', nutritionGroup: 'protein',    ingredients: ['tuna', 'mayo', 'celery', 'whole grain crackers'], allergens: ['gluten'],  note: 'Omega-3s, lean protein' },
+  { id: 44, name: 'Egg Salad Sandwich',     image: 'https://cdn-icons-png.flaticon.com/512/1046/1046788.png', type: 'lunch', nutritionGroup: 'protein',    ingredients: ['eggs', 'mayo', 'mustard', 'whole grain bread'], allergens: ['gluten','eggs'], note: 'Complete protein, choline' },
+  { id: 45, name: 'Bean & Cheese Burrito',  image: 'https://cdn-icons-png.flaticon.com/512/1046/1046789.png', type: 'lunch', nutritionGroup: 'protein',    ingredients: ['flour tortilla', 'black beans', 'cheddar', 'rice'], allergens: ['gluten','dairy'], note: 'Plant protein, fiber, calcium' },
+  { id: 46, name: 'Chicken Nuggets & Veggies', image: 'https://cdn-icons-png.flaticon.com/512/1046/1046790.png', type: 'lunch', nutritionGroup: 'protein', ingredients: ['chicken', 'breadcrumbs', 'broccoli', 'dipping sauce'], allergens: ['gluten'], note: 'Lean protein + vitamins' },
+  { id: 47, name: 'Mini Turkey Meatballs',  image: 'https://cdn-icons-png.flaticon.com/512/1046/1046791.png', type: 'lunch', nutritionGroup: 'protein',    ingredients: ['ground turkey', 'egg', 'breadcrumbs', 'marinara'], allergens: ['gluten','eggs'], note: 'Lower-fat protein, iron' },
+  { id: 48, name: 'Salmon Patties',         image: 'https://cdn-icons-png.flaticon.com/512/1046/1046792.png', type: 'lunch', nutritionGroup: 'protein',    ingredients: ['canned salmon', 'egg', 'breadcrumbs', 'dill'], allergens: ['gluten','eggs'], note: 'Omega-3 DHA for brain development' },
+  { id: 49, name: 'Lentil Soup',            image: 'https://cdn-icons-png.flaticon.com/512/1046/1046793.png', type: 'lunch', nutritionGroup: 'protein',    ingredients: ['lentils', 'carrots', 'celery', 'tomatoes', 'vegetable broth'], allergens: [], note: 'Plant protein, iron, fiber' },
+  { id: 50, name: 'Hummus Veggie Bowl',     image: 'https://cdn-icons-png.flaticon.com/512/1046/1046794.png', type: 'lunch', nutritionGroup: 'veggie',     ingredients: ['hummus', 'pita', 'cucumber', 'cherry tomatoes', 'bell pepper'], allergens: ['gluten'], note: 'Plant-based, colorful, fiber-rich' },
+
+  // ── LUNCHES: GRAIN-CENTERED ──
+  { id: 51, name: 'Mac & Cheese',           image: 'https://cdn-icons-png.flaticon.com/512/1046/1046795.png', type: 'lunch', nutritionGroup: 'grain',       ingredients: ['pasta', 'cheddar', 'milk', 'butter'], allergens: ['gluten','dairy'], note: 'Calcium + carbs; use whole grain pasta' },
+  { id: 52, name: 'Veggie Pasta',           image: 'https://cdn-icons-png.flaticon.com/512/1046/1046796.png', type: 'lunch', nutritionGroup: 'grain',       ingredients: ['pasta', 'tomato sauce', 'zucchini', 'spinach', 'parmesan'], allergens: ['gluten','dairy'], note: 'Iron from spinach, lycopene from tomato' },
+  { id: 53, name: 'Cheese Quesadilla',      image: 'https://cdn-icons-png.flaticon.com/512/1046/1046797.png', type: 'lunch', nutritionGroup: 'grain',       ingredients: ['flour tortilla', 'cheddar'],          allergens: ['gluten','dairy'], note: 'Quick calcium + grain base' },
+  { id: 54, name: 'PB&J Sandwich',          image: 'https://cdn-icons-png.flaticon.com/512/1046/1046798.png', type: 'lunch', nutritionGroup: 'grain',       ingredients: ['whole grain bread', 'peanut butter', 'strawberry jelly'], allergens: ['gluten','nuts','strawberries'], note: 'Classic comfort, healthy fat + fiber' },
+  { id: 55, name: 'Brown Rice & Veggie Bowl',image: 'https://cdn-icons-png.flaticon.com/512/1046/1046799.png', type: 'lunch', nutritionGroup: 'grain',      ingredients: ['brown rice', 'edamame', 'shredded carrots', 'soy sauce'], allergens: ['soy'], note: 'Whole grain, plant protein' },
+  { id: 56, name: 'Whole Wheat Pancakes',   image: 'https://cdn-icons-png.flaticon.com/512/1046/1046800.png', type: 'lunch', nutritionGroup: 'grain',       ingredients: ['whole wheat flour', 'egg', 'milk', 'banana', 'maple syrup'], allergens: ['gluten','eggs','dairy'], note: 'Fiber-rich, kid-favorite' },
+  { id: 57, name: 'Mini Pita Pizzas',       image: 'https://cdn-icons-png.flaticon.com/512/1046/1046801.png', type: 'lunch', nutritionGroup: 'grain',       ingredients: ['pita bread', 'tomato sauce', 'mozzarella', 'bell peppers'], allergens: ['gluten','dairy'], note: 'Calcium + lycopene + fun assembly' },
+  { id: 58, name: 'Fried Rice with Veggies',image: 'https://cdn-icons-png.flaticon.com/512/1046/1046802.png', type: 'lunch', nutritionGroup: 'grain',       ingredients: ['rice', 'egg', 'peas', 'carrots', 'soy sauce'], allergens: ['eggs','soy'], note: 'Iron-rich peas, complete protein from egg' },
+  { id: 59, name: 'Oatmeal with Toppings',  image: 'https://cdn-icons-png.flaticon.com/512/1046/1046803.png', type: 'lunch', nutritionGroup: 'grain',       ingredients: ['rolled oats', 'milk', 'banana', 'honey', 'cinnamon'], allergens: ['gluten','dairy'], note: 'Beta-glucan fiber, sustained energy' },
+
+  // ── LUNCHES: VEGGIE-FORWARD ──
+  { id: 60, name: 'Mini Veggie Frittata',   image: 'https://cdn-icons-png.flaticon.com/512/1046/1046804.png', type: 'lunch', nutritionGroup: 'protein',     ingredients: ['eggs', 'spinach', 'cherry tomatoes', 'cheddar', 'milk'], allergens: ['eggs','dairy'], note: 'Iron & folate from spinach' },
+  { id: 61, name: 'Veggie Fried Rice',      image: 'https://cdn-icons-png.flaticon.com/512/1046/1046805.png', type: 'lunch', nutritionGroup: 'grain',       ingredients: ['rice', 'broccoli', 'carrots', 'peas', 'egg', 'soy sauce'], allergens: ['eggs','soy'], note: 'Colorful, multi-vitamin meal' },
+  { id: 62, name: 'Sweet Potato & Black Bean Bowl', image: 'https://cdn-icons-png.flaticon.com/512/1046/1046806.png', type: 'lunch', nutritionGroup: 'veggie', ingredients: ['sweet potato', 'black beans', 'corn', 'salsa', 'cheese'], allergens: ['dairy'], note: 'Vitamins A & C, plant protein, fiber' },
+  { id: 63, name: 'Minestrone Soup',        image: 'https://cdn-icons-png.flaticon.com/512/1046/1046807.png', type: 'lunch', nutritionGroup: 'veggie',      ingredients: ['vegetable broth', 'kidney beans', 'pasta', 'zucchini', 'tomatoes', 'spinach'], allergens: ['gluten'], note: 'Multi-veggie nutrient powerhouse' },
+  { id: 64, name: 'Caprese Skewers',        image: 'https://cdn-icons-png.flaticon.com/512/1046/1046808.png', type: 'lunch', nutritionGroup: 'dairy',       ingredients: ['mozzarella', 'cherry tomatoes', 'basil', 'olive oil'], allergens: ['dairy'], note: 'Calcium, lycopene, healthy fat' },
+  { id: 65, name: 'Loaded Veggie Quesadilla',image: 'https://cdn-icons-png.flaticon.com/512/1046/1046809.png', type: 'lunch', nutritionGroup: 'veggie',     ingredients: ['flour tortilla', 'black beans', 'corn', 'bell peppers', 'cheddar'], allergens: ['gluten','dairy'], note: 'Fiber + plant protein + calcium' },
+  { id: 66, name: 'Cucumber Noodle Bowl',   image: 'https://cdn-icons-png.flaticon.com/512/1046/1046810.png', type: 'lunch', nutritionGroup: 'veggie',      ingredients: ['cucumber', 'edamame', 'sesame seeds', 'rice vinegar', 'soy sauce'], allergens: ['soy'], note: 'Low-calorie, hydrating, plant protein' },
+
+  // ── SIDES ──
+  { id: 67, name: 'Sweet Potato Fries',     image: 'https://cdn-icons-png.flaticon.com/512/1046/1046811.png', type: 'side', nutritionGroup: 'veggie', ingredients: ['sweet potato', 'olive oil'], allergens: [], note: 'Vitamin A, naturally sweet' },
+  { id: 68, name: 'Steamed Broccoli',       image: 'https://cdn-icons-png.flaticon.com/512/1046/1046812.png', type: 'side', nutritionGroup: 'veggie', ingredients: ['broccoli'], allergens: [], note: 'Vitamin C, fiber, iron' },
+  { id: 69, name: 'Roasted Cauliflower',    image: 'https://cdn-icons-png.flaticon.com/512/1046/1046813.png', type: 'side', nutritionGroup: 'veggie', ingredients: ['cauliflower', 'olive oil'], allergens: [], note: 'Vitamin K, antioxidants' },
+  { id: 70, name: 'Garlic Green Beans',     image: 'https://cdn-icons-png.flaticon.com/512/1046/1046814.png', type: 'side', nutritionGroup: 'veggie', ingredients: ['green beans', 'garlic', 'olive oil'], allergens: [], note: 'Fiber, folate, vitamin C' },
+  { id: 71, name: 'Corn on the Cob',        image: 'https://cdn-icons-png.flaticon.com/512/1046/1046815.png', type: 'side', nutritionGroup: 'grain', ingredients: ['corn', 'butter'], allergens: ['dairy'], note: 'Whole grain, kid-friendly' },
+  { id: 72, name: 'Mashed Butternut Squash', image: 'https://cdn-icons-png.flaticon.com/512/1046/1046816.png', type: 'side', nutritionGroup: 'veggie', ingredients: ['butternut squash', 'butter'], allergens: ['dairy'], note: 'Vitamins A & C, creamy texture' },
+  { id: 73, name: 'Roasted Carrots',        image: 'https://cdn-icons-png.flaticon.com/512/1046/1046817.png', type: 'side', nutritionGroup: 'veggie', ingredients: ['carrots', 'honey', 'olive oil'], allergens: [], note: 'Beta-carotene, naturally sweet' },
+  { id: 74, name: 'Cucumber Salad',         image: 'https://cdn-icons-png.flaticon.com/512/1046/1046818.png', type: 'side', nutritionGroup: 'veggie', ingredients: ['cucumber', 'vinegar', 'dill'], allergens: [], note: 'Hydrating, refreshing, low-calorie' },
+  { id: 75, name: 'Cherry Tomato Salad',    image: 'https://cdn-icons-png.flaticon.com/512/1046/1046819.png', type: 'side', nutritionGroup: 'veggie', ingredients: ['cherry tomatoes', 'basil', 'olive oil'], allergens: [], note: 'Lycopene, fresh herbs' },
+  { id: 76, name: 'Quinoa Salad',           image: 'https://cdn-icons-png.flaticon.com/512/1046/1046820.png', type: 'side', nutritionGroup: 'grain', ingredients: ['quinoa', 'cucumber', 'lemon', 'parsley'], allergens: [], note: 'Complete protein, gluten-free grain' },
+];
+
+const FOOD_EMOJI_MAP = {
+  'Apple Slices': '🍎',
+  'Banana': '🍌',
+  'Blueberries': '🫐',
+  'Strawberries': '🍓',
+  'Mango Chunks': '🥭',
+  'Watermelon Cubes': '🍉',
+  'Grapes (halved)': '🍇',
+  'Peach Slices': '🍑',
+  'Pear Slices': '🍐',
+  'Orange Segments': '🍊',
+  'Kiwi Slices': '🥝',
+  'Applesauce Cup': '🍎',
+  'Carrot Sticks & Hummus': '🥕',
+  'Cucumber Rounds': '🥒',
+  'Cherry Tomatoes': '🍅',
+  'Sugar Snap Peas': '🫛',
+  'Celery & Peanut Butter': '🥬',
+  'Avocado Toast Bites': '🥑',
+  'Edamame': '🫛',
+  'Roasted Sweet Potato Bites': '🍠',
+  'String Cheese': '🧀',
+  'Yogurt Cup': '🥛',
+  'Cottage Cheese & Fruit': '🧀',
+  'Hard-Boiled Egg': '🥚',
+  'Turkey Roll-Ups': '🍗',
+  'Sunflower Seed Butter': '🥜',
+  'Whole Grain Crackers': '🍘',
+  'Rice Cakes with Butter': '🍘',
+  'Oatmeal Bites': '🥣',
+  'Goldfish Crackers': '🐟',
+  'Graham Crackers': '🍪',
+  'Granola Bar': '🍫',
+  'Mini Bagel & Cream Cheese': '🥯',
+  'Pita Chips & Hummus': '🫓',
+  'Popcorn (lightly salted)': '🍿',
+  'Mixed Nuts': '🥜',
+  'Trail Mix': '🥜',
+  'Nut-Free Energy Balls': '⚪',
+  'Cheese & Fruit Kabobs': '🍢',
+  'Turkey & Cheese Sandwich': '🥪',
+  'Chicken & Veggie Wrap': '🌯',
+  'Mini Chicken Meatballs': '🍗',
+  'Tuna Salad Crackers': '🐟',
+  'Egg Salad Sandwich': '🥪',
+  'Bean & Cheese Burrito': '🌯',
+  'Chicken Nuggets & Veggies': '🍗',
+  'Mini Turkey Meatballs': '🍗',
+  'Salmon Patties': '🐟',
+  'Lentil Soup': '🥣',
+  'Hummus Veggie Bowl': '🥗',
+  'Mac & Cheese': '🧀',
+  'Veggie Pasta': '🍝',
+  'Cheese Quesadilla': '🫓',
+  'PB&J Sandwich': '🥪',
+  'Brown Rice & Veggie Bowl': '🍚',
+  'Whole Wheat Pancakes': '🥞',
+  'Mini Pita Pizzas': '🍕',
+  'Fried Rice with Veggies': '🍚',
+  'Oatmeal with Toppings': '🥣',
+  'Mini Veggie Frittata': '🥚',
+  'Veggie Fried Rice': '🍚',
+  'Sweet Potato & Black Bean Bowl': '🍲',
+  'Minestrone Soup': '🍲',
+  'Caprese Skewers': '🍢',
+  'Loaded Veggie Quesadilla': '🫓',
+  'Cucumber Noodle Bowl': '🍜',
+  'Sweet Potato Fries': '🍟',
+  'Steamed Broccoli': '🥦',
+  'Roasted Cauliflower': '🥦',
+  'Garlic Green Beans': '🫛',
+  'Corn on the Cob': '🌽',
+  'Mashed Butternut Squash': '🎃',
+  'Roasted Carrots': '🥕',
+  'Cucumber Salad': '🥒',
+  'Cherry Tomato Salad': '🍅',
+  'Quinoa Salad': '🥗',
+};
+
+// Nutrition group labels for display
+const NUTRITION_GROUPS = {
+  'fruit':       { label: 'Fruit',        emoji: '🍎', color: '#FFE0E0' },
+  'veggie':      { label: 'Vegetable',    emoji: '', color: '#E0F5E0' },
+  'dairy':       { label: 'Dairy',        emoji: '', color: '#E8F4FC' },
+  'protein':     { label: 'Protein',      emoji: '', color: '#FFF0DC' },
+  'grain':       { label: 'Grains',       emoji: '', color: '#FFF8DC' },
+  'healthy-fat': { label: 'Healthy Fat',  emoji: '', color: '#F0FFE8' },
+};
+
+const ALLERGEN_OPTIONS = [
+  { key: 'nuts',        label: 'Nuts',        emoji: '' },
+  { key: 'dairy',       label: 'Dairy',       emoji: '' },
+  { key: 'gluten',      label: 'Gluten',      emoji: '' },
+  { key: 'eggs',        label: 'Eggs',        emoji: '' },
+  { key: 'soy',         label: 'Soy',         emoji: '' },
+  { key: 'shellfish',   label: 'Shellfish',   emoji: '' },
+  { key: 'strawberries',label: 'Strawberries',emoji: '' },
+];
+
+const DAYS = ['Monday','Tuesday','Wednesday','Thursday','Friday'];
+const CATEGORIES = { produce:'Produce', dairy:'Dairy', grains:'Grains', protein:'Protein', snacks:'Snacks', other:'Other' };
+
+function load(key, fallback) {
+  try { const v = localStorage.getItem(key); return v ? JSON.parse(v) : fallback; } catch { return fallback; }
+}
+function save(key, val) { localStorage.setItem(key, JSON.stringify(val)); }
+
+let foods = load(STORAGE_KEYS.foods, DEFAULT_FOODS);
+let plan  = load(STORAGE_KEYS.plan,  null);
+let prefs = load(STORAGE_KEYS.prefs, { allergens: [], dislikes: [] });
+let generateBurstIndex = 0;
+
+function getFoodEmoji(food) {
+  if (food.emoji) return food.emoji;
+  return FOOD_EMOJI_MAP[food.name]
+    || NUTRITION_GROUPS[food.nutritionGroup]?.emoji
+    || '🍽️';
+}
+
+// ============================================================
+// UTILS
+// ============================================================
+function toast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 2500);
+}
+
+function rand(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+
+function launchPretzels() {
+  const btn = document.getElementById('generate-btn');
+  if (!btn) return;
+
+  const burstEmojis = ['🥨', '🥕', '🧀'];
+  const burstEmoji = burstEmojis[generateBurstIndex % burstEmojis.length];
+  generateBurstIndex += 1;
+
+  const burst = document.createElement('div');
+  burst.className = 'pretzel-burst';
+
+  const offsets = [
+    { x: -252, y: -80 },
+    { x: -156, y: -110 },
+    { x: -72, y: -130 },
+    { x: 0, y: -150 },
+    { x: 72, y: -130 },
+    { x: 156, y: -110 },
+    { x: 252, y: -80 },
+    { x: -192, y: -60 },
+    { x: 192, y: -60 },
+  ];
+
+  offsets.forEach((pos, i) => {
+    const piece = document.createElement('span');
+    piece.className = 'pretzel';
+    piece.textContent = burstEmoji;
+    piece.style.setProperty('--x', `${pos.x}px`);
+    piece.style.setProperty('--y', `${pos.y}px`);
+    piece.style.setProperty('--delay', `${i * 40}ms`);
+    burst.appendChild(piece);
+  });
+
+  btn.appendChild(burst);
+  setTimeout(() => burst.remove(), 900);
+}
+
+function getFoodPool(type) {
+  return foods.filter(f => {
+    if (f.type !== type) return false;
+    if (f.allergens.some(a => prefs.allergens.includes(a))) return false;
+    const name = f.name.toLowerCase();
+    if (prefs.dislikes.some(d => name.includes(d.toLowerCase()))) return false;
+    return true;
+  });
+}
+
+// ============================================================
+// NAVIGATION
+// ============================================================
+document.querySelectorAll('nav button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.section).classList.add('active');
+  });
+});
+
+const logo = document.querySelector('.logo');
+if (logo) {
+  const openPlanner = () => {
+    document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    const plannerBtn = document.querySelector('nav button[data-section="weekly-plan"]');
+    plannerBtn?.classList.add('active');
+    document.getElementById('weekly-plan').classList.add('active');
+  };
+
+  logo.addEventListener('click', openPlanner);
+  logo.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      openPlanner();
+    }
+  });
+}
+
+// ============================================================
+// FOOD LIBRARY
+// ============================================================
+let currentFilter = 'all';
+
+function renderFoodGrid() {
+  const grid = document.getElementById('food-grid');
+  const typeFilters = ['snack', 'lunch', 'side'];
+
+  const filtered = foods.filter(f => {
+    if (currentFilter === 'all') return true;
+    if (typeFilters.includes(currentFilter)) return f.type === currentFilter;
+    return true;
+  });
+  const addCardHtml = `
+    <button class="food-card add-food-card" id="toggle-add-form" type="button">
+      <div class="add-food-label">Add Food</div>
+    </button>
+  `;
+
+  if (!filtered.length) {
+    grid.innerHTML = `${addCardHtml}<p style="color:#aaa; text-align:center; padding:2rem; grid-column:1/-1;">No foods yet — add some above!</p>`;
+    return;
+  }
+  grid.innerHTML = filtered.map(f => {
+    const ng = NUTRITION_GROUPS[f.nutritionGroup] || { label: f.nutritionGroup, emoji: '', color: '#F0F0F0' };
+    const cardEmoji = getFoodEmoji(f);
+    return `
+    <div class="food-card" data-type="${f.type}" style="border-top: 4px solid ${ng.color};">
+      <img class="food-image" src="${f.image}" alt="${f.name}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'" />
+      <div class="food-emoji">${cardEmoji}</div>
+      <div class="food-body">
+        <div class="food-name">${f.name}</div>
+        ${f.note ? `<div style="font-size:0.7rem; color:#888; text-align:center; line-height:1.3; margin-top:2px;">${f.note}</div>` : ''}
+        ${f.allergens.length ? `<div class="allergen-tags">${f.allergens.map(a=>`<span class="allergen-tag">${a}</span>`).join('')}</div>` : ''}
+      </div>
+      <div class="food-card-actions">
+        <button class="icon-btn icon-btn-del" onclick="deleteFood(${f.id})" title="Delete" aria-label="Delete">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M9 3h6l1 2h4v2H4V5h4l1-2Zm1 6h2v9h-2V9Zm4 0h2v9h-2V9ZM7 9h2v9H7V9Zm-1 11h12a2 2 0 0 0 2-2V9H4v9a2 2 0 0 0 2 2Z" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  `}).join('') + addCardHtml;
+}
+
+document.querySelectorAll('.filter-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    currentFilter = tab.dataset.filter;
+    renderFoodGrid();
+  });
+});
+
+document.addEventListener('click', (e) => {
+  const addBtn = e.target.closest('#toggle-add-form');
+  if (!addBtn) return;
+  document.getElementById('add-form-card').classList.toggle('open');
+});
+document.getElementById('cancel-add-btn').addEventListener('click', () => {
+  document.getElementById('add-form-card').classList.remove('open');
+});
+
+document.getElementById('save-food-btn').addEventListener('click', () => {
+  const name = document.getElementById('input-name').value.trim();
+  const image = document.getElementById('input-image').value.trim() || 'https://cdn-icons-png.flaticon.com/512/1046/1046900.png';
+  const type  = document.getElementById('input-type').value;
+  const ingredients = document.getElementById('input-ingredients').value.split(',').map(s=>s.trim()).filter(Boolean);
+  const allergens   = document.getElementById('input-allergens').value.split(',').map(s=>s.trim().toLowerCase()).filter(Boolean);
+  if (!name) { toast('Please enter a food name!'); return; }
+  const newFood = { id: Date.now(), name, image, type, nutritionGroup: 'grain', ingredients, allergens, note: '' };
+  foods.push(newFood);
+  save(STORAGE_KEYS.foods, foods);
+  renderFoodGrid();
+  document.getElementById('add-form-card').classList.remove('open');
+  ['input-name','input-image','input-ingredients','input-allergens'].forEach(id => document.getElementById(id).value = '');
+  toast(`${name} added!`);
+});
+
+function deleteFood(id) {
+  if (!confirm('Remove this food?')) return;
+  foods = foods.filter(f => f.id !== id);
+  save(STORAGE_KEYS.foods, foods);
+  renderFoodGrid();
+  toast('Food removed.');
+}
+
+// ============================================================
+// WEEKLY PLANNER
+// ============================================================
+function generatePlan() {
+  const snackPool = getFoodPool('snack');
+  const lunchPool = getFoodPool('lunch');
+  const sidePool = getFoodPool('side');
+  const morningSnackCount = parseInt(document.getElementById('morning-snacks').value);
+  const afternoonSnackCount = parseInt(document.getElementById('afternoon-snacks').value);
+  
+  const totalSnacksNeeded = morningSnackCount + afternoonSnackCount;
+  if (snackPool.length < totalSnacksNeeded) { 
+    toast(`Need at least ${totalSnacksNeeded} snack options! Add more in Foods.`); 
+    return; 
+  }
+  if (!lunchPool.length) { 
+    toast('Need at least 1 lunch option! Add more in Foods.'); 
+    return; 
+  }
+  if (sidePool.length < 2) { 
+    toast('Need at least 2 side options! Add more in Foods.'); 
+    return; 
+  }
+
+  plan = DAYS.map(day => {
+    const availableSnacks = [...snackPool];
+    
+    // Generate morning snacks
+    const morningSnacks = [];
+    for (let i = 0; i < morningSnackCount; i++) {
+      const idx = Math.floor(Math.random() * availableSnacks.length);
+      morningSnacks.push(availableSnacks.splice(idx, 1)[0]);
+    }
+    
+    // Generate afternoon snacks
+    const afternoonSnacks = [];
+    for (let i = 0; i < afternoonSnackCount; i++) {
+      const idx = Math.floor(Math.random() * availableSnacks.length);
+      afternoonSnacks.push(availableSnacks.splice(idx, 1)[0]);
+    }
+    
+    // Generate lunch and sides
+    const lunch = rand(lunchPool);
+    const availableSides = [...sidePool];
+    const sides = [];
+    for (let i = 0; i < 2; i++) {
+      const idx = Math.floor(Math.random() * availableSides.length);
+      sides.push(availableSides.splice(idx, 1)[0]);
+    }
+    
+    return { day, morningSnacks, afternoonSnacks, lunch, sides };
+  });
+  save(STORAGE_KEYS.plan, plan);
+  renderPlan();
+  launchPretzels();
+  toast('🎉 Weekly plan generated!');
+}
+
+function resetPlan() {
+  plan = null;
+  save(STORAGE_KEYS.plan, plan);
+  renderPlan();
+  toast('Weekly plan reset.');
+}
+
+function regenDay(dayIdx) {
+  if (!plan) return;
+  const snackPool = getFoodPool('snack');
+  const lunchPool = getFoodPool('lunch');
+  const sidePool = getFoodPool('side');
+  const morningSnackCount = parseInt(document.getElementById('morning-snacks').value);
+  const afternoonSnackCount = parseInt(document.getElementById('afternoon-snacks').value);
+  
+  const totalSnacksNeeded = morningSnackCount + afternoonSnackCount;
+  if (snackPool.length < totalSnacksNeeded || !lunchPool.length || sidePool.length < 2) { 
+    toast('Not enough food options!'); 
+    return; 
+  }
+  
+  const availableSnacks = [...snackPool];
+  
+  // Generate morning snacks
+  const morningSnacks = [];
+  for (let i = 0; i < morningSnackCount; i++) {
+    const idx = Math.floor(Math.random() * availableSnacks.length);
+    morningSnacks.push(availableSnacks.splice(idx, 1)[0]);
+  }
+  
+  // Generate afternoon snacks
+  const afternoonSnacks = [];
+  for (let i = 0; i < afternoonSnackCount; i++) {
+    const idx = Math.floor(Math.random() * availableSnacks.length);
+    afternoonSnacks.push(availableSnacks.splice(idx, 1)[0]);
+  }
+  
+  // Generate lunch and sides
+  const lunch = rand(lunchPool);
+  const availableSides = [...sidePool];
+  const sides = [];
+  for (let i = 0; i < 2; i++) {
+    const idx = Math.floor(Math.random() * availableSides.length);
+    sides.push(availableSides.splice(idx, 1)[0]);
+  }
+  
+  plan[dayIdx] = { ...plan[dayIdx], morningSnacks, afternoonSnacks, lunch, sides };
+  save(STORAGE_KEYS.plan, plan);
+  renderPlan();
+}
+
+function renderPlan() {
+  const grid = document.getElementById('week-grid');
+  if (!plan) {
+    grid.innerHTML = '<div class="empty-plan-msg"><div class="big"></div><p>Hit <strong>Generate Week</strong> to build your meal plan!</p></div>';
+    return;
+  }
+  
+  grid.innerHTML = plan.map((d, i) => {
+    const morningSnacksHtml = d.morningSnacks.map(snack => `
+      <div class="meal-item">${snack.name}</div>
+    `).join('');
+    
+    const afternoonSnacksHtml = d.afternoonSnacks.map(snack => `
+      <div class="meal-item">${snack.name}</div>
+    `).join('');
+    
+    const sidesHtml = d.sides.map(side => `
+      <div class="meal-item">${side.name}</div>
+    `).join('');
+    
+    return `
+      <div class="day-card">
+        <div class="day-header day-${i}">
+          ${d.day}
+          <button class="day-regen-btn" onclick="regenDay(${i})" title="Regenerate day" aria-label="Sync day">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M20 12a8 8 0 0 0-14.9-4M4 4v4h4M4 12a8 8 0 0 0 14.9 4M20 20v-4h-4" />
+            </svg>
+          </button>
+        </div>
+        <div class="day-meals">
+          <div class="meal-slot snack">
+            <div>
+              <div class="meal-slot-label">Morning Snacks</div>
+              <div class="meal-slot-content">${morningSnacksHtml}</div>
+            </div>
+          </div>
+          <div class="meal-slot lunch">
+            <div>
+              <div class="meal-slot-label">Lunch</div>
+              <div class="meal-slot-content">
+                <div class="meal-item main-meal">${d.lunch.name}</div>
+                <div class="meal-sides">
+                  <div class="meal-sides-label">Sides:</div>
+                  ${sidesHtml}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="meal-slot snack">
+            <div>
+              <div class="meal-slot-label">Afternoon Snacks</div>
+              <div class="meal-slot-content">${afternoonSnacksHtml}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+document.getElementById('generate-btn').addEventListener('click', generatePlan);
+document.getElementById('reset-plan-btn').addEventListener('click', resetPlan);
+
+document.querySelectorAll('.week-layout-toggle button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.week-layout-toggle button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const grid = document.getElementById('week-grid');
+    if (btn.dataset.layout === 'horizontal') grid.classList.add('horizontal');
+    else grid.classList.remove('horizontal');
+  });
+});
+
+// ============================================================
+// SHOPPING LIST
+// ============================================================
+function buildShoppingList() {
+  if (!plan) { toast('Generate a weekly plan first!'); return; }
+
+  const allItems = {};
+  plan.forEach(d => {
+    // Process morning and afternoon snacks (array format)
+    [...d.morningSnacks, ...d.afternoonSnacks, d.lunch, ...d.sides].forEach(food => {
+      food.ingredients.forEach(ing => {
+        const key = ing.toLowerCase().trim();
+        allItems[key] = (allItems[key] || 0) + 1;
+      });
+    });
+  });
+
+  const groups = { produce: [], dairy: [], grains: [], protein: [], snacks: [], other: [] };
+
+  const categoryMap = {
+    produce: ['apple','banana','carrot','blueberry','strawberry','lettuce','zucchini','tomato','fruit','vegetable'],
+    dairy:   ['milk','cheese','cheddar','mozzarella','yogurt','butter','cream','dairy'],
+    grains:  ['bread','pasta','tortilla','cracker','pretzel','wheat','oat','rice','breadcrumb'],
+    protein: ['chicken','turkey','beef','egg','peanut butter','hummus','tuna'],
+    snacks:  ['goldfish','pretzel','cracker','jelly','cinnamon','salt'],
+  };
+
+  Object.entries(allItems).forEach(([item, count]) => {
+    let placed = false;
+    for (const [cat, keywords] of Object.entries(categoryMap)) {
+      if (keywords.some(k => item.includes(k))) {
+        groups[cat].push({ item, count });
+        placed = true; break;
+      }
+    }
+    if (!placed) groups.other.push({ item, count });
+  });
+
+  const content = document.getElementById('shopping-content');
+  const html = Object.entries(groups).filter(([,items]) => items.length).map(([cat, items]) => `
+    <div class="shopping-group">
+      <div class="shopping-group-title">${CATEGORIES[cat]}</div>
+      ${items.map((it, idx) => `
+        <div class="shopping-item">
+          <input type="checkbox" id="item-${cat}-${idx}" />
+          <label for="item-${cat}-${idx}">
+            <div class="check-box">✓</div>
+            <span class="item-text">${it.item}${it.count > 1 ? ` <span style="color:#aaa;font-size:0.8rem;">(×${it.count})</span>` : ''}</span>
+          </label>
+        </div>
+      `).join('')}
+    </div>
+  `).join('');
+
+  content.innerHTML = html || '<div class="empty-list-msg"><div class="big"></div><p>No items to show.</p></div>';
+  toast('Shopping list ready!');
+}
+
+function syncAmazonFresh() {
+  if (!plan) { toast('Generate a weekly plan first!'); return; }
+
+  const allItems = {};
+  plan.forEach(d => {
+    [...d.morningSnacks, ...d.afternoonSnacks, d.lunch, ...d.sides].forEach(food => {
+      food.ingredients.forEach(ing => {
+        const key = ing.toLowerCase().trim();
+        allItems[key] = (allItems[key] || 0) + 1;
+      });
+    });
+  });
+
+  const rows = Object.entries(allItems)
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([item, count]) => `${item},${count}`);
+
+  const csv = ['item,quantity', ...rows].join('\n');
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(csv)
+      .then(() => toast('Amazon Fresh mock sync: list copied to clipboard.'))
+      .catch(() => toast('Copy failed. Try again.'));
+  } else {
+    toast('Clipboard not available.');
+  }
+}
+
+function updateDescription() {
+  const morningCount = parseInt(document.getElementById('morning-snacks').value);
+  const afternoonCount = parseInt(document.getElementById('afternoon-snacks').value);
+  const desc = document.querySelector('.planner-description');
+  if (!desc) return;
+  const total = morningCount + afternoonCount;
+  desc.textContent = `Plan includes ${morningCount} morning snacks, ${afternoonCount} afternoon snacks, and lunch with 2 sides per day (${total + 3} items total).`;
+}
+
+document.getElementById('build-list-btn').addEventListener('click', buildShoppingList);
+document.getElementById('amazon-sync-btn').addEventListener('click', syncAmazonFresh);
+document.getElementById('print-list-btn').addEventListener('click', () => window.print());
+document.getElementById('morning-snacks').addEventListener('change', updateDescription);
+document.getElementById('afternoon-snacks').addEventListener('change', updateDescription);
+
+// ============================================================
+// PREFERENCES
+// ============================================================
+function renderAllergens() {
+  const grid = document.getElementById('allergen-grid');
+  grid.innerHTML = ALLERGEN_OPTIONS.map(a => `
+    <div class="pref-toggle">
+      <div class="pref-toggle-label">
+        <span>${a.emoji}</span> ${a.label}
+      </div>
+      <label class="toggle-wrap">
+        <input type="checkbox" data-allergen="${a.key}" ${prefs.allergens.includes(a.key) ? 'checked' : ''} />
+        <span class="toggle-slider"></span>
+      </label>
+    </div>
+  `).join('');
+
+  grid.querySelectorAll('input[data-allergen]').forEach(inp => {
+    inp.addEventListener('change', () => {
+      const key = inp.dataset.allergen;
+      if (inp.checked) { if (!prefs.allergens.includes(key)) prefs.allergens.push(key); }
+      else { prefs.allergens = prefs.allergens.filter(a => a !== key); }
+      save(STORAGE_KEYS.prefs, prefs);
+      toast(inp.checked ? `${key} excluded!` : `${key} allowed`);
+    });
+  });
+}
+
+function renderDislikes() {
+  const container = document.getElementById('dislike-tags');
+  container.innerHTML = prefs.dislikes.map(d => `
+    <div class="dislike-tag">
+      ${d}
+      <button onclick="removeDislike('${d}')">✕</button>
+    </div>
+  `).join('');
+}
+
+function removeDislike(item) {
+  prefs.dislikes = prefs.dislikes.filter(d => d !== item);
+  save(STORAGE_KEYS.prefs, prefs);
+  renderDislikes();
+}
+
+document.getElementById('add-dislike-btn').addEventListener('click', () => {
+  const val = document.getElementById('dislike-input').value.trim().toLowerCase();
+  if (!val) return;
+  if (!prefs.dislikes.includes(val)) { prefs.dislikes.push(val); save(STORAGE_KEYS.prefs, prefs); }
+  document.getElementById('dislike-input').value = '';
+  renderDislikes();
+  toast(`"${val}" added to dislikes`);
+});
+
+document.getElementById('dislike-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') document.getElementById('add-dislike-btn').click();
+});
+
+// ============================================================
+// INIT
+// ============================================================
+renderFoodGrid();
+renderPlan();
+renderAllergens();
+renderDislikes();
+updateDescription();
+</script>
+
+</body>
+</html>
