@@ -1390,7 +1390,6 @@ function renderFoodGrid() {
     const cardEmoji = getFoodEmoji(f);
     return `
     <div class="food-card" data-type="${f.type}" style="border-top: 4px solid ${ng.color};">
-      <img class="food-image" src="${f.image}" alt="${f.name}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'" />
       <div class="food-emoji">${cardEmoji}</div>
       <div class="food-body">
         <div class="food-name">${f.name}</div>
