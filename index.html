@@ -12,39 +12,39 @@
   <style>
     /* ── TOKENS ── */
     :root {
-      --primary-green: #C8E6C9;
-      --primary-green-light: #E1F5E1;
-      --primary-green-dark: #A5D6A7;
-      --button-teal: #2E7D7D;
-      --button-teal-light: #4A9B9B;
-      --accent-orange: #FFE0B2;
-      --accent-orange-light: #FFF3E0;
-      --accent-pink: #F8BBD9;
-      --accent-blue: #BBDEFB;
-      --accent-purple: #E1BEE7;
-      --background-cream: #FFFEF7;
-      --background-light: #FAFAFA;
-      --card-breakfast: #FFF8E1;
-      --card-snack: #E8F5E8;
-      --card-lunch: #FFE0B2;
-      --card-dinner: #BBDEFB;
-      --card-side: #F8BBD9;
-      --yellow: #FFEB3B;
-      --yellow-light: #FFF9C4;
-      --friendly-teal: #2E7D7D;
-      --friendly-teal-light: #4A9B9B;
-      --friendly-teal-dark: #1B5E5E;
-      --blue: #2196F3;
-      --blue-light: #E3F2FD;
+      --primary-green: #9AA7D7;
+      --primary-green-light: #DCE4FA;
+      --primary-green-dark: #7B86C6;
+      --button-teal: #D9A441;
+      --button-teal-light: #E4B24D;
+      --accent-orange: #F0B35B;
+      --accent-orange-light: #F4C070;
+      --accent-pink: #D9A7B5;
+      --accent-blue: #DCE4FA;
+      --accent-purple: #9AA7D7;
+      --background-cream: #F2EEE7;
+      --background-light: #F7F4EE;
+      --card-breakfast: #F4EAD9;
+      --card-snack: #EEF2FF;
+      --card-lunch: #F8D8A1;
+      --card-dinner: #C8D2F2;
+      --card-side: #F4C070;
+      --yellow: #F0B35B;
+      --yellow-light: #F4C070;
+      --friendly-teal: #D9A441;
+      --friendly-teal-light: #E4B24D;
+      --friendly-teal-dark: #B8862D;
+      --blue: #7B86C6;
+      --blue-light: #DCE4FA;
       --white: #FFFFFF;
-      --black: #212121;
-      --gray: #F5F5F5;
-      --gray-mid: #E0E0E0;
-      --text-primary: #212121;
-      --text-secondary: #757575;
-      --shadow: 0 2px 8px rgba(0,0,0,0.1);
-      --shadow-hover: 0 4px 12px rgba(0,0,0,0.15);
-      --shadow-card: 0 2px 8px rgba(0,0,0,0.08);
+      --black: #1A1A1A;
+      --gray: #EDEDED;
+      --gray-mid: #C9C9C9;
+      --text-primary: #91A3D9;
+      --text-secondary: #4A4A4A;
+      --shadow: 0 2px 10px rgba(0,0,0,0.14);
+      --shadow-hover: 0 6px 16px rgba(0,0,0,0.18);
+      --shadow-card: 0 3px 10px rgba(0,0,0,0.12);
       --radius-card: 16px;
       --radius-btn: 8px;
       --font-head: "Shantell Sans", cursive;
@@ -52,10 +52,10 @@
     }
 
     /* ── RESET ── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; box-shadow: none !important; }
     body { 
       font-family: var(--font-body); 
-      background: var(--white); 
+      background: #f4f1ea; 
       color: var(--text-primary); 
       min-height: 100vh; 
       line-height: 1.6;
@@ -90,17 +90,28 @@
     nav { display: flex; gap: 0.5rem; }
     nav button {
       background: transparent;
-      color: var(--text-secondary);
+      color: #91A3D9;
       font-weight: 600;
       font-size: 0.9rem;
       padding: 0.5rem 1.2rem;
       border-radius: var(--radius-btn);
       transition: background 0.2s, color 0.2s;
     }
+
+    .nav-icon {
+      width: 27px;
+      height: 27px;
+      display: block;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
     nav button:hover,
     nav button.active {
       background: var(--primary-green);
-      color: var(--text-primary);
+      color: #2E3F7A;
     }
 
     /* ── MAIN LAYOUT ── */
@@ -115,8 +126,11 @@
       display: none; 
       background: transparent;
       border-radius: var(--radius-card);
-      padding: 2.5rem;
+      padding: 2.5rem 56px;
       margin-bottom: 2rem;
+      width: 100vw;
+      margin-left: calc(50% - 50vw);
+      margin-right: calc(50% - 50vw);
       box-shadow: none;
     }
     .section.active { display: block; }
@@ -125,7 +139,8 @@
       font-family: var(--font-body);
       font-size: 2.5rem;
       font-weight: 900;
-      color: var(--text-primary);
+      color: #2E3F7A;
+      line-height: 1.1;
       margin-bottom: 2rem;
       display: flex;
       align-items: flex-start;
@@ -133,6 +148,52 @@
       text-align: left;
       justify-content: flex-start;
     }
+
+    .planner-hero {
+      width: 100%;
+      height: 200px;
+      border-radius: 24px;
+      background: transparent;
+      border: none;
+      overflow: hidden;
+      display: flex;
+      align-items: stretch;
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+
+    .planner-hero img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+
+    .planner-hero-left {
+      flex: 0 0 38%;
+      background: #D0D9F2;
+      display: flex;
+      align-items: center;
+      padding-left: 24px;
+      padding-right: 24px;
+      border-top-right-radius: 120px;
+      border-bottom-right-radius: 120px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .planner-hero-title {
+      font-family: var(--font-body);
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: #2E3F7A;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      padding: 0;
+    }
+
 
     /* ── BUTTONS ── */
     .btn {
@@ -416,7 +477,16 @@
       font-size: 1.1rem; 
       letter-spacing: 0.02em;
       margin-bottom: 0.5rem;
-      color: var(--black);
+      color: #2E3F7A;
+    }
+
+    .food-card[data-type="snack"] .food-name {
+      color: #92a4d9;
+    }
+
+    .food-card[data-type="lunch"] .food-name,
+    .food-card[data-type="side"] .food-name {
+      color: #B8862D;
     }
 
     .food-body {
@@ -487,7 +557,7 @@
       gap: 1.5rem;
       margin-bottom: 2rem;
       padding: 2rem;
-      background: var(--primary-green-light);
+      background: transparent;
       border-radius: var(--radius-card);
       box-shadow: none;
       align-items: start;
@@ -509,22 +579,26 @@
     }
     
     .control-group select {
-      border: 2px solid var(--gray-mid);
+      border: none;
       border-radius: var(--radius-btn);
       padding: 0.75rem 1rem;
       padding-right: calc(1rem + 32px);
       font-size: 0.95rem;
-      background: #fff;
+      background: #ddd6ca;
       font-family: var(--font-body);
       font-weight: 500;
       transition: all 0.3s ease;
-      box-shadow: var(--shadow);
+      box-shadow: none;
     }
 
     #morning-snacks,
     #afternoon-snacks {
       padding-right: calc(1rem + 36px);
-      border-color: var(--button-teal);
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%232E3F7A' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      background-size: 12px 8px;
     }
 
     .planner-controls .btn {
@@ -534,6 +608,7 @@
       margin-top: 1.55rem;
       justify-content: center;
       text-align: center;
+      box-shadow: none;
     }
     
     .control-group select:focus {
@@ -545,7 +620,10 @@
     .week-grid {
       display: flex;
       flex-direction: column;
-      gap: 1.5rem;
+      gap: 2rem;
+      background: transparent;
+      padding: 0;
+      border-radius: 0;
     }
 
     .week-grid.horizontal {
@@ -563,8 +641,8 @@
     .week-layout-toggle button {
       padding: 0.4rem 0.75rem;
       border-radius: 999px;
-      border: 1px solid var(--gray-mid);
-      background: var(--white);
+      border: 1px solid transparent;
+      background: transparent;
       color: var(--text-secondary);
       font-size: 0.75rem;
       font-weight: 700;
@@ -593,8 +671,8 @@
     }
     
     .day-header {
-      background: var(--button-teal);
-      color: #fff;
+      background: #D0D9F2;
+      color: #2e3f7a;
       font-family: var(--font-head);
       font-weight: 900;
       font-size: 1.2rem;
@@ -604,15 +682,15 @@
       justify-content: space-between;
     }
 
-    .day-header.day-0 { background: #2E7D7D; }
-    .day-header.day-1 { background: #3A8D8D; }
-    .day-header.day-2 { background: #4A9B9B; }
-    .day-header.day-3 { background: #5EABAB; }
-    .day-header.day-4 { background: #73BABA; }
+    .day-header.day-0 { background: #D0D9F2; }
+    .day-header.day-1 { background: #D0D9F2; }
+    .day-header.day-2 { background: #D0D9F2; }
+    .day-header.day-3 { background: #D0D9F2; }
+    .day-header.day-4 { background: #D0D9F2; }
     
     .day-regen-btn {
       background: rgba(255,255,255,0.2);
-      color: #fff;
+      color: #2e3f7a;
       border-radius: 50%;
       width: 32px; height: 32px;
       display: flex; align-items: center; justify-content: center;
@@ -641,28 +719,30 @@
       display: flex; 
       flex-direction: column; 
       gap: 1rem; 
+      background: #e6eaf8;
     }
 
     .meal-slot {
       border-radius: var(--radius-btn);
       padding: 1rem;
       transition: all 0.3s ease;
-      border-left: 4px solid transparent;
+      border-left: none;
     }
     
     .meal-slot.lunch { 
       background: var(--card-lunch);
-      border-left-color: var(--button-teal);
+    }
+
+    .meal-slot.lunch .meal-slot-label {
+      color: #B8862D;
     }
     
     .meal-slot.snack { 
       background: var(--card-snack);
-      border-left-color: var(--button-teal);
     }
     
     .meal-slot.side { 
       background: var(--card-side);
-      border-left-color: var(--button-teal);
     }
     
     .meal-slot-label {
@@ -670,7 +750,7 @@
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      color: var(--black);
+      color: #92a4d9;
       margin-bottom: 0.75rem;
       display: block;
     }
@@ -702,6 +782,11 @@
       background: white;
       box-shadow: var(--shadow-card);
       font-size: 1rem;
+      color: #B8862D;
+    }
+
+    .meal-slot.lunch .meal-item {
+      color: #B8862D;
     }
     
     .meal-sides {
@@ -713,10 +798,14 @@
     .meal-sides-label {
       font-size: 0.8rem;
       font-weight: 700;
-      color: var(--black);
+      color: #B8862D;
       margin-bottom: 0.75rem;
       text-transform: uppercase;
       letter-spacing: 0.5px;
+    }
+
+    .meal-slot.lunch .meal-sides .meal-item {
+      color: #B8862D;
     }
 
     .empty-plan-msg {
@@ -890,10 +979,56 @@
     #toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
 
     /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      main { padding: 2rem 1.5rem; }
+      .section { padding: 2rem 40px; }
+      .section-title { font-size: 2rem; }
+      .planner-controls { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 720px) {
+      header { height: auto; padding: 0.75rem 1rem; flex-direction: column; gap: 0.75rem; }
+      .logo  { font-size: 3.375rem; }
+      nav button { flex: 1; text-align: center; padding: 0.6rem 0.5rem; font-size: 0.85rem; }
+
+      main { padding: 1.5rem 1rem; }
+      .section { padding: 1.5rem 24px; }
+
+      .library-controls { padding: 0; gap: 1rem; }
+      .filter-tabs { width: 100%; padding: 0.75rem; overflow-x: auto; flex-wrap: nowrap; }
+      .filter-tab { white-space: nowrap; }
+
+      .food-grid { grid-template-columns: 1fr; }
+      .food-card { padding: 1.25rem; }
+      .add-food-card { min-height: 180px; }
+
+      .planner-controls .btn {
+        width: 100%;
+        margin-top: 0;
+      }
+      .week-layout-toggle { width: 100%; justify-content: space-between; }
+      .week-layout-toggle button { flex: 1; text-align: center; }
+
+      .planner-hero { height: 180px; }
+      .planner-hero-left { flex-basis: 52%; border-top-right-radius: 80px; border-bottom-right-radius: 80px; }
+      .planner-hero-title { font-size: 1.6rem; }
+
+      .shopping-header { flex-direction: column; align-items: stretch; }
+      .shopping-header .btn { width: 100%; }
+
+      .dislike-input-row { flex-direction: column; }
+      .dislike-input-row .btn { width: 100%; }
+    }
+
     @media (max-width: 600px) {
       header { padding: 0 1rem; }
       .logo  { font-size: 1.5rem; }
       nav button { padding: 0.4rem 0.8rem; font-size: 0.8rem; }
+      .section-title { font-size: 1.75rem; }
+      .food-emoji { font-size: 2.2rem; }
+      .day-header { font-size: 1rem; }
+      .planner-hero { height: 160px; }
+      .planner-hero-left { flex-basis: 58%; }
     }
   </style>
 </head>
@@ -906,7 +1041,11 @@
     <button class="active" data-section="weekly-plan">Planner</button>
     <button data-section="food-library">Foods</button>
     <button data-section="shopping-list">Shopping</button>
-    <button data-section="preferences">🍔</button>
+    <button data-section="preferences" aria-label="Preferences">
+      <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M4 7h16M4 12h16M4 17h16" />
+      </svg>
+    </button>
   </nav>
 </header>
 
@@ -914,7 +1053,12 @@
 
   <!-- ── WEEKLY PLAN ── -->
   <section id="weekly-plan" class="section active">
-    <h2 class="section-title">Weekly Planner</h2>
+    <div class="planner-hero">
+      <img src="imgs/hero-foodz.jpg" alt="Weekly meal plan" />
+      <div class="planner-hero-left">
+        <div class="planner-hero-title">Weekly Planner</div>
+      </div>
+    </div>
     <div class="planner-controls">
       <div class="control-group">
         <label for="morning-snacks">Morning snacks:</label>
